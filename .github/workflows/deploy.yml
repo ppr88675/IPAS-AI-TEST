@@ -3,33 +3,36 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # 確保這是你的主要分支名稱
+      - main
 
 permissions:
   contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout 檢出程式碼
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node 設置環境
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies 安裝套件
         run: npm install
 
-      - name: Build
+      - name: Build 進行打包
         run: npm run build
 
-      - name: Deploy
+      - name: Deploy 部署到 GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # Vite 打包後的資料夾
-          branch: gh-pages # 這是之後要用來呈現網頁的分支
+          folder: dist
+          branch: gh-pages
