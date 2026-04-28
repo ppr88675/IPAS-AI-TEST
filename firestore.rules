@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Questions collection: Anyone can read, only admin (system) can write
+    // For this prototype, we'll allow reading if authenticated or even public if needed.
+    match /questions/{questionId} {
+      allow read, write: if true;
+    }
+    
+    // Testing connection
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}

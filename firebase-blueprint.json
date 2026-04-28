@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Question": {
+      "title": "iPAS Exam Question",
+      "description": "A single exam question for iPAS AI Application Planner.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number", "description": "Unique identifier" },
+        "question": { "type": "string", "description": "The question text" },
+        "options": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of 4 choices"
+        },
+        "answer": { "type": "number", "description": "Index of the correct answer (0-3)" },
+        "explanation": { "type": "string", "description": "Explanation for the answer" },
+        "category": { "type": "string", "description": "e.g., Computer Vision, NLP, Ethics" }
+      },
+      "required": ["id", "question", "options", "answer", "explanation"]
+    }
+  },
+  "firestore": {
+    "/questions/{questionId}": {
+      "schema": "Question",
+      "description": "Collection of all iPAS exam questions."
+    }
+  }
+}
